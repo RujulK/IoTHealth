@@ -5,7 +5,7 @@
 #include <DHT.h>
 
 // Wi-Fi credentials
-const char *ssid = "Rujul";
+const char *ssid = "";
 const char *password = "12345678Rujul";
 
 WebServer server(80); // Create a web server object
@@ -19,8 +19,6 @@ void handleRoot() {
 
   // Calculate Respiratory Health Index
   float respiratoryHealthIndex = 100 - temperatureC;
-
-  int heartRate = random(70, 85); // Simulate heart rate within a range
 
   // Generate HTML response with sensor data
   snprintf(msg, 2000,
@@ -55,14 +53,6 @@ void handleRoot() {
             </div>\
         </div>\
         <div class='data'>\
-            <span class='label'>Heart Rate</span>\
-            <div>\
-                <i class='fas fa-heartbeat icon' style='color:#f7347a;'></i>\
-                <span class='value'>%d</span>\
-                <span class='unit'>BPM</span>\
-            </div>\
-        </div>\
-        <div class='data'>\
             <span class='label'>Respiratory Health Index</span>\
             <div>\
                 <i class='fas fa-heartbeat icon' style='color:#f7347a;'></i>\
@@ -72,7 +62,7 @@ void handleRoot() {
     </div>\
 </body>\
 </html>",
-           temperatureC, heartRate, respiratoryHealthIndex
+           temperatureC, respiratoryHealthIndex
           );
   server.send(200, "text/html", msg); // Send HTML response to client
 }
